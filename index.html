@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: #FFF;
+      font-size: 15px;
+      font-weight: 500;
+      height: 100vh;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  </style>
+  <link rel="preload" as="style" href="style.css">
+  <link rel="preload" as="script" href="sw-presentation.js">
+  <link rel="preload" as="script" href="sw-progress-bar.js">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com/">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.4.0/shaka-player.compiled.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <title>Streamwave - Chromecast</title>
+</head>
+<body>
+  <sw-presentation>
+    <section class="presentation__cover-container">
+      <div class="presentation__cover">
+        <img class="presentation__artwork"/>
+      </div>
+    </section>
+    <section class="presentation__footer">
+      <div class="presentation__progress-wrapper">
+        <sw-progress-bar>
+          <div class="progress-bar-presentation__track"></div>
+          <div class="progress-bar-presentation__round-container">
+            <div class="progress-bar-presentation__round"></div>
+          </div>
+        </sw-progress-bar>
+      </div>
+      <section class="presentation__all-infos">
+        <span class="presentation__current-time"></span>
+        <div class="presentation__infos">
+          <span class="presentation__title"></span>
+          <span class="presentation__artist"></span>
+          <span class="presentation__album"></span>
+        </div>
+        <span class="presentation__total-time"></span>
+      </section>
+    </section>
+    <audio preload="metadata"></audio>
+  </sw-presentation>
+  <script defer src="sw-presentation.js"></script>
+  <script defer src="sw-progress-bar.js"></script>
+  <script>
+    if (!'customElements' in window) {
+      const script = document.createElement('script');
+      script.src = 'polyfills/custom-elements.min.js';
+      document.body.appendChild(script);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+sw-presentation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #262727;
+  overflow: hidden;
+}
+
+.presentation__cover-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.presentation__cover {
+  opacity: 0.7;
+}
+
+.presentation__artwork {
+  max-width: 300px;
+}
+
+.presentation__footer {
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+}
+
+.presentation__progress-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5px;
+  width: 100%;
+}
+
+.presentation__all-infos {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.presentation__current-time {
+  margin: 0 20px;
+  font-weight: bold;
+}
+
+.presentation__total-time {
+  margin: 0 20px;
+  font-weight: bold;
+}
+
+.presentation__infos {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  padding: 5px;
+  height: 100px;
+}
+
+.presentation__title {
+  margin: 3px;
+  font-size: 18px;
+}
+
+.presentation__artist {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 3px;
+  opacity: 0.7;
+}
+
+.presentation__album {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 3px;
+  opacity: 0.7;
+}
+
+sw-progress-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  background: rgba(255,255,255,0.5);
+}
+
+.progress-bar-presentation__track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #FFF;
+  transform: translate(0, -50%);
+  transform-origin: 0 50%;
+}
+
+.progress-bar-presentation__round-container {
+  position: relative;
+  width: 100%;
+  background: 0 0;
+  border: none;
+  outline: none;
+  pointer-events: none;
+}
+
+.progress-bar-presentation__round {
+  position: absolute;
+  top: 50%;
+  left: -5px;
+  height: 15px;
+  width: 15px;
+  outline: 0;
+  border-radius: 50%;
+  background: #FFF;
+  transform: translateY(-50%) scale(0.7);
+  transition: transform .2s cubic-bezier(0, 0, 0.3, 1);
+}

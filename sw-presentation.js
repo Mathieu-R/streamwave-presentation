@@ -148,11 +148,9 @@ class SWPresentation extends HTMLElement {
     this.totalTime.innerText = track.duration;
   }
 
-  updateTime (evt) {
-    
-  }
-
   attributesChangedCallback (name, oldValue, newValue) {
 
   }
 }
+
+customElements.define('sw-presentation', SWPresentation);

@@ -139,7 +139,7 @@ class SWPresentation extends HTMLElement {
   }
 
   updateUI (data) {
-    const {artist, album, track, currentTime}
+    const {artist, album, track, currentTime} = data;
     this.artwork.src = `${SWPresentation.CDN_URL}/${track.coverURL}`;
     this.title.innerText = track.title;
     this.artist.innerText = artist;

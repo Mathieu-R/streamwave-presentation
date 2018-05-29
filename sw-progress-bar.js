@@ -21,7 +21,7 @@ class SWProgressBar extends HTMLElement {
   }
 
   addEventListeners () {
-    this.audio.addEventListeners('timeupdate', this.onTimeUpdate);
+    this.audio.addEventListener('timeupdate', this.onTimeUpdate);
   }
 
   onTimeUpdate (evt) {

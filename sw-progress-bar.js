@@ -9,7 +9,7 @@ class SWProgressBar extends HTMLElement {
     this.round = null;
     this.audio = null;
 
-    this.onTimeUpdate = this.onTimeUpdate.bind(this);
+    this.update = this.update.bind(this);
   }
 
   connectedCallback () {
@@ -17,28 +17,18 @@ class SWProgressBar extends HTMLElement {
     this.round = this.querySelector('.progress-bar-presentation__round-container');
     this.audio = document.querySelector('audio');
 
-    this.addEventListeners();
+    requestAnimationFrame(this.update);
   }
 
-  addEventListeners () {
-    this.audio.addEventListener('timeupdate', this.onTimeUpdate);
-  }
-
-  onTimeUpdate (evt) {
-    const {duration, currentTime} = evt.target;
+  update () {
+    const {duration, currentTime} = this.audio;
     if (!duration) {
       return;
     }
 
+    requestAnimationFrame(this.update);
     const position = currentTime / duration;
-    requestAnimationFrame(() => this.update(position));
-  }
 
-  disconnectedCallback () {
-    this.audio.removeEventListener('timeupdate', this.onTimeUpdate);
-  }
-
-  update (position) {
     this.track.style.transform = `translate(0, -50%) scaleX(${position})`;
     this.round.style.transform = `translateX(${position * 100}%)`;
   }

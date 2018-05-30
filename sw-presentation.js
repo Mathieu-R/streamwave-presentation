@@ -25,7 +25,7 @@ class SWPresentation extends HTMLElement {
   connectedCallback () {
     if (!navigator.presentation.receiver) {
       console.warn('Presentation page not opened through Presentation API !');
-      return;
+      //return;
     }
 
     this.title = this.querySelector('.presentation__title');
@@ -34,11 +34,10 @@ class SWPresentation extends HTMLElement {
     this.artwork = this.querySelector('.presentation__artwork');
     this.currentTime = this.querySelector('.presentation__current-time');
     this.totalTime = this.querySelector('.presentation__total-time');
-
+    this.idle = this.querySelector('.idle');
     this.audio = this.querySelector('audio');
-    this.initPresentation();
-    this.initShakaPlayer();
-    
+
+    this.initShakaReceiver();
     this.addEventListeners();
   }
 
@@ -66,15 +65,7 @@ class SWPresentation extends HTMLElement {
     return `${min}:${sec}`;
   }
 
-  initPresentation () {
-    navigator.presentation.receiver.connectionList.then(list => {
-      // the spec says to do that
-      list.connections.map(connection => this.addConnection(connection));
-      list.onconnectionavailable = evt => this.addConnection(evt.connection);
-    }).catch(err => console.error(err));
-  }
-
-  initShakaPlayer () {
+  initShakaReceiver () {
     // install shaka player polyfills
     shaka.polyfill.installAll();
 
@@ -84,58 +75,31 @@ class SWPresentation extends HTMLElement {
     }
 
     this.player = new shaka.Player(this.audio);
+    this.receiver =  new shaka.cast.CastReceiver(this.audio, this.player, this.metadataCallback);
+
+    this.receiver.addEventListener('caststatuschanged', this.checkIdle);
 
     // listen to errors
     this.player.addEventListener('error', err => console.error(err));
   }
 
-  /**
-   * Stream an audio with DASH (thanks to shaka-player)
-   * @param {String} manifest manifest url
-   */
-  listen (manifest) {
-    return this.player.load(`${SWPresentation.CDN_URL}/${manifest}`).then(_ => {
-      console.log(`[shaka-player] Music loaded: ${manifest}`);
-      return this.audio.play();
-    }).catch(err => {
-      console.error(err);
-    });
+  // handle metadata passed from the sender 
+  metadataCallback (data) {
+    // no data if receiver start without media loaded
+    if (!data) {
+      return;
+    }
+
+    const metadatas = data.asset;
   }
 
-  addConnection (connection) {
-    connection.send('connected');
-
-    connection.addEventListener('message', evt => {
-      connection.send(event.data);
-
-      const data = JSON.parse(evt.data);
-      const {type} = data;
-
-      if (type === 'song') {
-        this.updateUI(data);
-        this.listen(data.track.manifestURL);
-        return;
-      }
-
-      if (type === 'playOrPause') {
-        const {status} = data;
-        if (status === 'play') {
-          this.audio.play();
-        } else {
-          this.audio.pause();
-        }
-      }
-
-      if (type === 'seek') {
-        this.audio.currentTime = data.currentTime;
-        return;
-      }
-
-      if (type === 'volume') {
-        this.audio.volume = data.volume;
-        return;
-      }
-    });
+  checkIdle () {
+    const idle = this.receiver.isIdle();
+    if (idle) {
+      this.idle.classList.add('idle--visible');
+    } else {
+      this.idle.classList.remove('idle--visible');
+    }
   }
 
   updateUI (data) {

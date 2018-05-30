@@ -132,3 +132,17 @@ sw-progress-bar {
   transform: translateY(-50%) scale(0.7);
   transition: transform .2s cubic-bezier(0, 0, 0.3, 1);
 }
+
+.idle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 22px;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity .2s cubic-bezier(0, 0, 0.3, 1);
+}
+
+.idle.idle--visible {
+  opacity: 1;
+}

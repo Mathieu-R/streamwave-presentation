@@ -27,6 +27,7 @@
   <link rel="preload" as="script" href="sw-presentation.js">
   <link rel="preload" as="script" href="sw-progress-bar.js">
   <link rel="preconnect" href="https://cdnjs.cloudflare.com/">
+  <script defer src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.4.0/shaka-player.compiled.js"></script>
   <link rel="stylesheet" href="style.css">
   <title>Streamwave - Chromecast</title>
@@ -58,6 +59,9 @@
       </section>
     </section>
     <audio preload="metadata"></audio>
+    <div class="idle">
+      Choisissez une musique depuis l'application afin de l'écouter depuis cet appareil.
+    </div>
   </sw-presentation>
   <script defer src="sw-presentation.js"></script>
   <script defer src="sw-progress-bar.js"></script>

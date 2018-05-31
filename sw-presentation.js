@@ -51,7 +51,7 @@ class SWPresentation extends HTMLElement {
       return;
     }
 
-    this.currentTime.innerText = currentTime;
+    this.currentTime.innerText = this.formatDuration(currentTime);
   }
 
   disconnectedCallback () {
@@ -91,6 +91,7 @@ class SWPresentation extends HTMLElement {
     }
 
     const metadatas = data.asset;
+    this.updateUI(data);
   }
 
   checkIdle () {
@@ -103,13 +104,13 @@ class SWPresentation extends HTMLElement {
   }
 
   updateUI (data) {
-    const {artist, album, track, currentTime} = data;
-    this.artwork.src = `${SWPresentation.CDN_URL}/${track.coverURL}`;
-    this.title.innerText = track.title;
+    const {artist, album, title, coverURL, currentTime} = data;
+    this.artwork.src = coverURL;
+    this.title.innerText = title;
     this.artist.innerText = artist;
     this.album.innerText = album;
-    this.currentTime.innerText = currentTime;
-    this.totalTime.innerText = track.duration;
+    this.currentTime.innerText = this.formatDuration(currentTime);
+    this.totalTime.innerText = this.formatDuration(track.duration);
   }
 
   attributesChangedCallback (name, oldValue, newValue) {

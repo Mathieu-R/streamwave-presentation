@@ -91,7 +91,7 @@ class SWPresentation extends HTMLElement {
     }
 
     const metadatas = data.asset;
-    //this.updateUI(data);
+    this.updateUI(data);
   }
 
   checkIdle () {
@@ -104,13 +104,13 @@ class SWPresentation extends HTMLElement {
   }
 
   updateUI (data) {
-    const {artist, album, title, coverURL, currentTime} = data;
-    this.artwork.src = coverURL;
-    this.title.innerText = title;
+    const {artist, album, title, coverURL, currentTime, duration} = data;
     this.artist.innerText = artist;
     this.album.innerText = album;
+    this.title.innerText = title;
+    this.artwork.src = coverURL;
     this.currentTime.innerText = this.formatDuration(currentTime);
-    this.totalTime.innerText = this.formatDuration(track.duration);
+    this.totalTime.innerText = this.formatDuration(duration);
   }
 
   attributesChangedCallback (name, oldValue, newValue) {

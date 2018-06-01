@@ -41,14 +41,14 @@ class SWPresentation extends HTMLElement {
 
     this.initShakaReceiver();
     this.addEventListeners();
-    this.updateUI({
-      artist: 'Big Ty',
-      album: 'Tem',
-      title: 'Lève toi',
-      coverURL: 'https://cdn.streamwave.be/tem/tem.jpg',
-      currentTime: 0,
-      duration: 200
-    });
+    // this.updateUI({
+    //   artist: 'Big Ty',
+    //   album: 'Tem',
+    //   title: 'Lève toi',
+    //   coverURL: 'https://cdn.streamwave.be/tem/tem.jpg',
+    //   currentTime: 0,
+    //   duration: 200
+    // });
   }
 
   addEventListeners () {
@@ -101,7 +101,7 @@ class SWPresentation extends HTMLElement {
     }
 
     const metadatas = data.asset;
-    //this.updateUI(data);
+    this.updateUI(data.asset);
   }
 
   checkIdle () {

@@ -39,6 +39,14 @@ class SWPresentation extends HTMLElement {
 
     this.initShakaReceiver();
     this.addEventListeners();
+    this.updateUI({
+      artist: 'Big Ty',
+      album: 'Tem',
+      title: 'Lève toi',
+      coverURL: 'https://cdn.streamwave.be/tem/tem.jpg',
+      currentTime: 0,
+      totalTime: 200
+    });
   }
 
   addEventListeners () {

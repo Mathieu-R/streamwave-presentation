@@ -91,7 +91,7 @@ class SWPresentation extends HTMLElement {
     }
 
     const metadatas = data.asset;
-    this.updateUI(data);
+    //this.updateUI(data);
   }
 
   checkIdle () {

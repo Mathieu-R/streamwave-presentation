@@ -21,12 +21,13 @@ class SWProgressBar extends HTMLElement {
   }
 
   update () {
+    requestAnimationFrame(this.update);
+    
     const {duration, currentTime} = this.audio;
     if (!duration) {
       return;
     }
 
-    requestAnimationFrame(this.update);
     const position = currentTime / duration;
 
     this.track.style.transform = `translate(0, -50%) scaleX(${position})`;

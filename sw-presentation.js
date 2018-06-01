@@ -5,7 +5,7 @@ class SWPresentation extends HTMLElement {
 
   constructor () {
     super();
-    this.title = null;
+    this.trackTitle = null;
     this.artist = null;
     this.album = null;
     this.artwork = null;
@@ -28,7 +28,7 @@ class SWPresentation extends HTMLElement {
       //return;
     }
 
-    this.title = this.querySelector('.presentation__title');
+    this.trackTitle = this.querySelector('.presentation__title');
     this.artist = this.querySelector('.presentation__artist');
     this.album = this.querySelector('.presentation__album');
     this.artwork = this.querySelector('.presentation__artwork');
@@ -37,16 +37,18 @@ class SWPresentation extends HTMLElement {
     this.idle = this.querySelector('.idle');
     this.audio = this.querySelector('audio');
 
+    console.log(this.querySelector('.presentation__title'), this);
+
     this.initShakaReceiver();
     this.addEventListeners();
-    this.updateUI({
-      artist: 'Big Ty',
-      album: 'Tem',
-      title: 'Lève toi',
-      coverURL: 'https://cdn.streamwave.be/tem/tem.jpg',
-      currentTime: 0,
-      totalTime: 200
-    });
+    // this.updateUI({
+    //   artist: 'Big Ty',
+    //   album: 'Tem',
+    //   title: 'Lève toi',
+    //   coverURL: 'https://cdn.streamwave.be/tem/tem.jpg',
+    //   currentTime: 0,
+    //   duration: 200
+    // });
   }
 
   addEventListeners () {
@@ -99,7 +101,7 @@ class SWPresentation extends HTMLElement {
     }
 
     const metadatas = data.asset;
-    //this.updateUI(data);
+    this.updateUI(data);
   }
 
   checkIdle () {
@@ -115,7 +117,7 @@ class SWPresentation extends HTMLElement {
     const {artist, album, title, coverURL, currentTime, duration} = data;
     this.artist.innerText = artist;
     this.album.innerText = album;
-    this.title.innerText = title;
+    this.trackTitle.innerText = title;
     this.artwork.src = coverURL;
     this.currentTime.innerText = this.formatDuration(currentTime);
     this.totalTime.innerText = this.formatDuration(duration);

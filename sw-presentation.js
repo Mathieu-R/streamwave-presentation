@@ -14,7 +14,8 @@ class SWPresentation extends HTMLElement {
 
     this.audio = null;
     this.player = null;
-
+    
+    this.metadataCallback = this.metadataCallback.bind(this);
     this.onTimeUpdate = this.onTimeUpdate.bind(this);
   }
 
@@ -27,7 +28,7 @@ class SWPresentation extends HTMLElement {
       console.warn('Presentation page not opened through Presentation API !');
       //return;
     }
-
+    
     this.trackTitle = this.querySelector('.presentation__title');
     this.artist = this.querySelector('.presentation__artist');
     this.album = this.querySelector('.presentation__album');
@@ -36,8 +37,6 @@ class SWPresentation extends HTMLElement {
     this.totalTime = this.querySelector('.presentation__total-time');
     this.idle = this.querySelector('.idle');
     this.audio = this.querySelector('audio');
-
-    console.log(this.querySelector('.presentation__title'), this);
 
     this.initShakaReceiver();
     this.addEventListeners();
